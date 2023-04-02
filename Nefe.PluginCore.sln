@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nefe.PluginCore", "Nefe.PluginCore\Nefe.PluginCore.csproj", "{8643A753-AAE5-474E-B501-F998ACC51231}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit", "Unit", "{9D0B1010-8DD0-4112-B041-232DF08E3AF4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{65D3767C-A228-4A95-9FFB-28147379FDD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nefe.PluginCore.Unit.Test.Console", "Unit\Test\Console\Nefe.PluginCore.Unit.Test.Console.csproj", "{4C85A6EA-434F-4C66-A93D-43C33693512D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8643A753-AAE5-474E-B501-F998ACC51231}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8643A753-AAE5-474E-B501-F998ACC51231}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8643A753-AAE5-474E-B501-F998ACC51231}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8643A753-AAE5-474E-B501-F998ACC51231}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C85A6EA-434F-4C66-A93D-43C33693512D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C85A6EA-434F-4C66-A93D-43C33693512D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C85A6EA-434F-4C66-A93D-43C33693512D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C85A6EA-434F-4C66-A93D-43C33693512D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{65D3767C-A228-4A95-9FFB-28147379FDD7} = {9D0B1010-8DD0-4112-B041-232DF08E3AF4}
+		{4C85A6EA-434F-4C66-A93D-43C33693512D} = {65D3767C-A228-4A95-9FFB-28147379FDD7}
+	EndGlobalSection
+EndGlobal

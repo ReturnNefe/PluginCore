@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "K4wj9tae0MifWgCFGOxFFMicLDduys0zy9yKB06eAlUII1I283gWE/LAZcB0c7Kfw4NpVYqRLdsU8Yh9jbLeqw==",
+  "success": true,
+  "projectFilePath": "D:\\Work\\Program\\CSharp\\Library\\PluginCore\\Nefe.PluginCore\\Nefe.PluginCore.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Return\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Return\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
