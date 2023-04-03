@@ -10,13 +10,16 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("Nefe.PluginCore")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Nefe")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright 2023 Nefe reserve all rights.")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute("A Plugin Framework on .NET(.NET Core)")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("0.1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.1.0-beta")]
 [assembly: System.Reflection.AssemblyProductAttribute("Nefe.PluginCore")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Nefe.PluginCore")]
-[assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("0.1.0.0")]
+[assembly: System.Reflection.AssemblyMetadataAttribute("RepositoryUrl", "https://github.com/ReturnNefe/PluginCore")]
 
 // 由 MSBuild WriteCodeFragment 类生成。
 

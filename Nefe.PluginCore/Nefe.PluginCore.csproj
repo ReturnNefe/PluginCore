@@ -4,6 +4,21 @@
     <TargetFrameworks>netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
+
+    <!-- Nuget Package -->
+    <PackageId>Nefe.PluginCore</PackageId>
+    <Version>0.1.0-beta</Version>
+    <Authors>Nefe</Authors>
+    <Company></Company>
+    <Description>A Plugin Framework on .NET(.NET Core)</Description>
+    <Copyright>Copyright 2023 Nefe reserve all rights.</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <RepositoryUrl>https://github.com/ReturnNefe/PluginCore</RepositoryUrl>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
 </Project>
