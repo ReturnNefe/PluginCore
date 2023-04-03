@@ -109,7 +109,7 @@ namespace Nefe.PluginCore
         /// </summary>
         /// <typeparam name="T">The type of instances.</typeparam>
         /// <returns>The instances that were created.</returns>
-        public IEnumerable<T> CreateInstances<T>()
+        public IEnumerable<T> CreateInstance<T>()
         {
             if (plugin == null)
                 yield break;
