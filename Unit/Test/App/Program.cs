@@ -15,7 +15,7 @@ namespace Nefe.PluginCore.Unit.Test.App
 
             foreach (var pluginName in plugins)
             {
-                var pluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins", pluginName, $"Nefe.PluginCore.Unit.Test.{pluginName}.dll");
+                var pluginPath = Path.Combine(AppContext.BaseDirectory, "plugins", pluginName, $"Nefe.PluginCore.Unit.Test.{pluginName}.dll");
                 var plugin = new Plugin(pluginPath, isCollectible: true);
                 plugin.Unloading += (e) => Console.WriteLine("[App] Unloading...");
 
