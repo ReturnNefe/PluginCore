@@ -7,7 +7,7 @@
 
     <!-- Nuget Package -->
     <PackageId>Nefe.PluginCore</PackageId>
-    <Version>0.1.0-beta</Version>
+    <Version>0.1.1-beta</Version>
     <Authors>Nefe</Authors>
     <Company></Company>
     <Description>A Plugin Framework on .NET(.NET Core)</Description>

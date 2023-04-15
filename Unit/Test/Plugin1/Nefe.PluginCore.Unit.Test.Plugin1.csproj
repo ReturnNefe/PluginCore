@@ -5,11 +5,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     
-      <!--
-        NOTE:
-        Important. 
-        See https://learn.microsoft.com/en-us/dotnet/core/tutorials/creating-app-with-plugin-support
-      -->
+    <!--
+      NOTE:
+      Important. 
+      See https://learn.microsoft.com/en-us/dotnet/core/tutorials/creating-app-with-plugin-support
+    -->
     <EnableDynamicLoading>true</EnableDynamicLoading>
     
   </PropertyGroup>

@@ -3,6 +3,8 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace Nefe.PluginCore
 {
@@ -18,35 +20,28 @@ namespace Nefe.PluginCore
     public class Plugin
     {
         // Private Properties
-        private PluginBase? plugin;
-
-        // Private Method
-        private void LoadPlugin(string path = "")
-        {
-            plugin = new PluginBase(path, this.IsCollectible);
-
-            // NOTE:
-            // To Be Tested
-            plugin.Resolving += (e, name) => this.Resolving?.Invoke(e, name);
-            plugin.ResolvingUnmanagedDll += (assembly, text) => this.ResolvingUnmanagedDll?.Invoke(assembly, text) ?? IntPtr.Zero;
-            plugin.Unloading += (e) => this.Unloading?.Invoke(e);
-        }
+        private PluginBase plugin;
 
         // Public Properties
         /// <summary>
         /// Returns a collection of the System.Reflection.Assembly instances which has been loaded.
         /// </summary>
-        public IEnumerable<Assembly>? Assemblies { get => plugin?.Assemblies; }
+        public IEnumerable<Assembly> Assemblies { get => plugin.Assemblies; }
+
+        /// <summary>
+        /// Get the name of the plugin. 
+        /// </summary>
+        public string? Name { get => plugin.Name; }
+
+        /// <summary>
+        /// Get the path of the plugin.
+        /// </summary>
+        public string Path { get; private set; }
 
         /// <summary>
         /// Indicates whether unloading is enabled.
         /// </summary>
         public bool IsCollectible { get; set; }
-
-        /// <summary>
-        /// Get the name of the plugin. 
-        /// </summary>
-        public string? Name { get => plugin?.Name; }
 
         // Public Events
         public event Func<AssemblyLoadContext, AssemblyName, Assembly?>? Resolving;
@@ -57,13 +52,23 @@ namespace Nefe.PluginCore
         /// <summary>
         /// Initializes a new instance
         /// </summary>
+        /// <param name="pluginPath">The path of the plugin file which needs to be loaded.</param>
         /// <param name="isCollectible">
         /// Indicates whether unloading is enabled.
         /// True if the plugin can be unloaded, Otherwise, false.
         /// </param>
-        public Plugin(bool isCollectible = false)
+        public Plugin(string pluginPath, bool isCollectible = false)
         {
             this.IsCollectible = isCollectible;
+            this.Path = pluginPath;
+
+            this.plugin = new PluginBase(pluginPath, this.IsCollectible);
+
+            // NOTE:
+            // To Be Tested
+            plugin.Resolving += (e, name) => this.Resolving?.Invoke(e, name);
+            plugin.ResolvingUnmanagedDll += (assembly, text) => this.ResolvingUnmanagedDll?.Invoke(assembly, text) ?? IntPtr.Zero;
+            plugin.Unloading += (e) => this.Unloading?.Invoke(e);
         }
 
         /// <summary>
@@ -71,76 +76,91 @@ namespace Nefe.PluginCore
         /// </summary>
         /// <param name="path">A relative or absolute path for the file that the plugin will encapsulate.</param>
         /// <returns>The loaded assembly.</returns>
-        public Assembly? LoadFromFile(string path)
+        public Assembly? LoadFromFile()
         {
-            this.LoadPlugin(path);
-            using var inStream = new FileStream(path, FileMode.Open, FileAccess.Read);
-            return plugin?.LoadFromStream(inStream);
+            using var inStream = new FileStream(this.Path, FileMode.Open, FileAccess.Read);
+            return this.plugin.LoadFromStream(inStream);
         }
 
+        /*
+        
+        // NOTE:
+        // Changelog 2023/4/14
+        // LoadFromStream method has been removed,
+        // because I think it isn't necessary.
+        
         public Assembly? LoadFromStream(Stream stream)
         {
             this.LoadPlugin();
-            return plugin?.LoadFromStream(stream);
+            return plugin.LoadFromStream(stream);
         }
 
         public Assembly? LoadFromStream(Stream stream, Stream symbols)
         {
             this.LoadPlugin();
-            return plugin?.LoadFromStream(stream, symbols);
+            return plugin.LoadFromStream(stream, symbols);
         }
+        */
 
-        public Assembly? LoadFromAssemblyPath(string path)
+        public Assembly? LoadFromAssemblyPath()
         {
-            this.LoadPlugin(path);
-            return plugin?.LoadFromAssemblyPath(path);
+            return this.plugin.LoadFromAssemblyPath(this.Path);
         }
 
         // NOTE:
         // To Be Tested
-        public Assembly? LoadFromAssemblyName(string path, AssemblyName name)
+        public Assembly? LoadFromAssemblyName(AssemblyName name)
         {
-            this.LoadPlugin(path);
-            return plugin?.LoadFromAssemblyName(name);
+            return this.plugin.LoadFromAssemblyName(name);
         }
-        
+
+
+
+        // NOTE:
+        // Changelog 2023/4/4 (to published)
+        // Add CreateInstancesFromAssembly Method
+        // Use CreateInstancesFromAssembly, not CreateInstances, because CreateInstances will search for all assembly
+        // ↓
+        // plugin.Assemblies -> { PluginA, PluginA.Reference1, PluginA.Reference2, ... }
+
         /// <summary>
-        /// Create the instances from the plugin by particular type.
+        /// Create the instances from the assembly by particular type.
+        /// </summary>
+        /// <param name="assembly">The assembly to which the type belong</param>
+        /// <typeparam name="T">The type of instances.</typeparam>
+        /// <returns>The instances that were created.</returns>
+        public IEnumerable<T> CreateInstancesFromAssembly<T>(Assembly assembly)
+        {
+            foreach (var type in assembly.GetTypes())
+            {
+                if (typeof(T).IsAssignableFrom(type))
+                {
+                    if (Activator.CreateInstance(type) is T result)
+                        yield return result;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Create the instances from each assembly of the plugin by particular type.
         /// </summary>
         /// <typeparam name="T">The type of instances.</typeparam>
         /// <returns>The instances that were created.</returns>
-        public IEnumerable<T> CreateInstance<T>()
+        public IEnumerable<T> CreateInstances<T>()
         {
-            if (plugin == null)
+            if (this.plugin == null)
                 yield break;
 
-            foreach (var assembly in plugin.Assemblies)
+            foreach (var assembly in this.plugin.Assemblies)
             {
-                foreach (var type in assembly.GetTypes())
-                {
-                    if (typeof(T).IsAssignableFrom(type))
-                    {
-                        if (Activator.CreateInstance(type) is T result)
-                            yield return result;
-                    }
-                }
+                var result = CreateInstancesFromAssembly<T>(assembly);
+                foreach (var iter in result)
+                    yield return iter;
             }
         }
 
         // NOTE:
-        // ``foreceWaiting`` To Be Fixed
-        public void Unload(bool forceWaiting = false)
-        {
-            if (plugin != null)
-            {
-                plugin.Unload();
-
-                if (forceWaiting)
-                {
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
-                }
-            }
-        }
+        // Wait for the completition of unloading to be tested.
+        public void Unload() => plugin.Unload();
     }
 }
