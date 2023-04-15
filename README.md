@@ -1,6 +1,4 @@
-_**!!! This file is pending**_
-
-# PluginCore
+# Nefe.PluginCore
 
 A lite plugin framework on .NET(.NET Core), which can be used to build plug-in programs.
 
@@ -11,10 +9,6 @@ A lite plugin framework on .NET(.NET Core), which can be used to build plug-in p
 .NET Core 3.1
 
 ## QuickStart
-
-```shell
-dotnet add package Nefe.PluginCore
-```
 
 You need create at least 3 projects.
 
@@ -28,6 +22,7 @@ dotnet new console -o MyApp
 
 Define the interface of the plugin:
 
+_IPlugin.cs_
 ```csharp
 public interface IPlugin
 {
@@ -39,7 +34,7 @@ public interface IPlugin
 
 Write code for the first plugin:
 
-_MyPlugin.cs:_
+_MyPlugin.cs_
 ```csharp
 public class MyPlugin : IPlugin
 {
@@ -86,6 +81,11 @@ Then, put the ``myplugin.dll`` into the base directory of the main program.
 
 **MyApp Project**
 
+```shell
+dotnet add package Nefe.PluginCore
+```
+
+_Program.cs_
 ```csharp
 using Nefe.PluginCore;
 
