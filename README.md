@@ -18,7 +18,7 @@ dotnet new classlib -o MyPlugin
 dotnet new console -o MyApp
 ```
 
-**MyApp.Interface Project**
+* **MyApp.Interface Project**
 
 Define the interface of the plugin:
 
@@ -30,7 +30,7 @@ public interface IPlugin
 }
 ```
 
-**MyPlugin Project**
+* **MyPlugin Project**
 
 Write code for the first plugin:
 
@@ -79,7 +79,7 @@ dotnet build
 
 Then, put the ``myplugin.dll`` into the base directory of the main program.
 
-**MyApp Project**
+* **MyApp Project**
 
 ```shell
 dotnet add package Nefe.PluginCore
