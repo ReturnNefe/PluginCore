@@ -12,6 +12,7 @@
     <Company></Company>
     <Description>A Plugin Framework on .NET(.NET Core)</Description>
     <Copyright>Copyright 2023 Nefe reserve all rights.</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/ReturnNefe/PluginCore</RepositoryUrl>
@@ -21,4 +22,8 @@
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
 </Project>
