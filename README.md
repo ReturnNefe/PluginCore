@@ -60,7 +60,7 @@ _MyPlugin.csproj_
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Interface/Nefe.PluginCore.Unit.Test.Interface.csproj">
+    <ProjectReference Include="../MyApp.Interface/MyApp.Interface.csproj">
       
       <!-- And here. -->
       <Private>false</Private>
