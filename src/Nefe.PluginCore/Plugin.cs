@@ -28,7 +28,7 @@ namespace Nefe.PluginCore
         #region [Public Property]
         
         /// <summary>
-        /// Returns a collection of the System.Reflection.Assembly instances which has been loaded.
+        /// Returns a collection of the <see cref="System.Reflection.Assembly"/> instances which has been loaded.
         /// </summary>
         public IEnumerable<Assembly> Assemblies { get => plugin.Assemblies; }
 
