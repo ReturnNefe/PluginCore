@@ -19,10 +19,14 @@ namespace Nefe.PluginCore
     /// </summary>
     public class Plugin
     {
-        // Private Properties
+        #region [Private Field]
+        
         private PluginBase plugin;
+        
+        #endregion
 
-        // Public Properties
+        #region [Public Property]
+        
         /// <summary>
         /// Returns a collection of the System.Reflection.Assembly instances which has been loaded.
         /// </summary>
@@ -42,13 +46,30 @@ namespace Nefe.PluginCore
         /// Indicates whether unloading is enabled.
         /// </summary>
         public bool IsCollectible { get; set; }
+        
+        #endregion
 
-        // Public Events
+        #region [Public Event]
+        
+        /// <summary>
+        /// Occurs when the resolution of an assembly fails when attempting to load into this assembly load context.
+        /// </summary>
         public event Func<AssemblyLoadContext, AssemblyName, Assembly?>? Resolving;
+        
+        /// <summary>
+        /// Occurs when the resolution of a native library fails.
+        /// </summary>
         public event Func<Assembly, string, IntPtr>? ResolvingUnmanagedDll;
+        
+        /// <summary>
+        /// Occurs when this plugin is unloaded.
+        /// </summary>
         public event Action<AssemblyLoadContext>? Unloading;
-
-        // Public Method
+        
+        #endregion
+        
+        #region [Public Method]
+        
         /// <summary>
         /// Initializes a new instance
         /// </summary>
@@ -72,14 +93,19 @@ namespace Nefe.PluginCore
         }
 
         /// <summary>
-        /// Loads the assembly from file stream with a common object file format (COFF)-based image containing a managed assembly.
+        /// Loads the assembly from itself.
         /// </summary>
-        /// <param name="path">A relative or absolute path for the file that the plugin will encapsulate.</param>
-        /// <returns>The loaded assembly.</returns>
+        /// <returns>
+        /// The loaded assembly.
+        /// If failed, returns null.
+        /// </returns>
         public Assembly? LoadFromFile()
         {
-            using var inStream = new FileStream(this.Path, FileMode.Open, FileAccess.Read);
-            return this.plugin.LoadFromStream(inStream);
+            // Use LoadFromAssemblyPath instead of LoadFromStream
+            // using var inStream = new FileStream(this.Path, FileMode.Open, FileAccess.Read);
+            // return this.plugin.LoadFromStream(inStream);
+            
+            return this.plugin.LoadFromAssemblyPath(this.Path);
         }
 
         /*
@@ -102,13 +128,21 @@ namespace Nefe.PluginCore
         }
         */
 
+        /*
         public Assembly? LoadFromAssemblyPath()
         {
             return this.plugin.LoadFromAssemblyPath(this.Path);
         }
+        */
 
-        // NOTE:
-        // To Be Tested
+        /// <summary>
+        /// Loads the assembly from itself by giving the name of assembly.
+        /// </summary>
+        /// <param name="name">The name of assembly to be loaded.</param>
+        /// <returns>
+        /// The loaded assembly.
+        /// If failed, returns null.
+        /// </returns>
         public Assembly? LoadFromAssemblyName(AssemblyName name)
         {
             return this.plugin.LoadFromAssemblyName(name);
@@ -161,6 +195,11 @@ namespace Nefe.PluginCore
 
         // NOTE:
         // Wait for the completition of unloading to be tested.
+        /// <summary>
+        /// Try to unload this plugin by Garbage Collector.
+        /// </summary>
         public void Unload() => plugin.Unload();
+        
+        #endregion
     }
 }

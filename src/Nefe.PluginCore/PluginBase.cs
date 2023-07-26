@@ -8,8 +8,14 @@ namespace Nefe.PluginCore
 {
     internal class PluginBase : AssemblyLoadContext
     {
+        #region [Private Field]
+        
         private AssemblyDependencyResolver resolver;
+        
+        #endregion
 
+        #region [Public Method]
+        
         public PluginBase(string pluginPath, bool isCollectible) : base(isCollectible)
         {
             resolver = new AssemblyDependencyResolver(pluginPath);
@@ -36,5 +42,7 @@ namespace Nefe.PluginCore
 
             return IntPtr.Zero;
         }
+        
+        #endregion
     }
 }

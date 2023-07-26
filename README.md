@@ -4,8 +4,8 @@ A lite plugin framework on .NET(.NET Core), which can be used to build plug-in p
 
 ## Requirements
 
+.NET 7
 .NET 6
-.NET 5
 .NET Core 3.1
 
 ## QuickStart

@@ -19,7 +19,7 @@ namespace Nefe.PluginCore.Unit.Test.App
                 var plugin = new Plugin(pluginPath, isCollectible: true);
                 plugin.Unloading += (e) => Console.WriteLine("[App] Unloading...");
 
-                var assembly = plugin.LoadFromAssemblyPath();
+                var assembly = plugin.LoadFromAssemblyName(new System.Reflection.AssemblyName($"Nefe.PluginCore.Unit.Test.{pluginName}"));
 
                 if (assembly != null)
                     Console.WriteLine(string.Join(Environment.NewLine,
